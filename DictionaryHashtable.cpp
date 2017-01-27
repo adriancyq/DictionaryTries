@@ -19,6 +19,7 @@ bool DictionaryHashtable::insert(std::string word)
 /* Return true if word is in the dictionary, and false otherwise */
 bool DictionaryHashtable::find(std::string word) const
 {
+	//returns word if found in hashset
 	return hashSet.find(word) != hashSet.end();
 }
 
