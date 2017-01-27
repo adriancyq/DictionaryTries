@@ -12,7 +12,7 @@ bool DictionaryHashtable::insert(std::string word)
 	std::pair<std::unordered_set<std::string>::iterator,bool> success;
 
 	//Insert the word in the dictionary
-	hashSet.insert(word);
+	success = hashSet.insert(word);
 	return success.second;
 }
 
