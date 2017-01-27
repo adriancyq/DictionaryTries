@@ -7,6 +7,7 @@
 #define DICTIONARY_BST_H
 
 #include <string>
+#include <set>
 
 /**
  *  The class for a dictionary ADT, implemented as a BST
@@ -34,7 +35,7 @@ public:
 private:
 
   // Add your own data members and methods here
-  std::set<string> dict;
+  std::set<std::string> dict;
 };
 
 #endif // DICTIONARY_BST_H
