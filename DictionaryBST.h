@@ -7,12 +7,13 @@
 #define DICTIONARY_BST_H
 
 #include <string>
+#include <set>
 
 /**
  *  The class for a dictionary ADT, implemented as a BST
  * When you implement this class, you MUST use a balanced binary
- * search tree in its implementation.  The C++ set implements 
- * a balanced BST, so we strongly suggest you use that to store 
+ * search tree in its implementation.  The C++ set implements
+ * a balanced BST, so we strongly suggest you use that to store
  * the dictionary.
  */
 class DictionaryBST
@@ -32,7 +33,9 @@ public:
   ~DictionaryBST();
 
 private:
+
   // Add your own data members and methods here
+  std::set<std::string> dict;
 };
 
 #endif // DICTIONARY_BST_H
