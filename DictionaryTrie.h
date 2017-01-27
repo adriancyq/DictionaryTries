@@ -3,11 +3,36 @@
  *  Authors: Jor-el Briones, Christine Alvarado
  */
 
+#define LETTERS 26
+
 #ifndef DICTIONARY_TRIE_H
 #define DICTIONARY_TRIE_H
 
 #include <vector>
 #include <string>
+
+/**
+* Multi-way Trie node class. Each node holds a reference to each child, to
+* ensure faster find.
+*/
+class MWTNode
+{
+public:
+
+  /* Array of children for constant access. */
+  MWTNode * children[LETTERS];
+
+  /* Marker for end of word. */
+  bool endWord;
+
+  /* If this Node marks the end of a word, it holds how frequent this word
+  * is searched for.
+  */
+  int frequency;
+
+  /* Constructor for the multiway trie node. */
+  MWTNode();
+};
 
 /**
  *  The class for a dictionary ADT, implemented as a trie
@@ -48,7 +73,9 @@ public:
   ~DictionaryTrie();
 
 private:
-  // Add your own data members and methods here
+
+  /* Root node of the trie */
+  MWTNode * root;
 };
 
 #endif // DICTIONARY_TRIE_H
