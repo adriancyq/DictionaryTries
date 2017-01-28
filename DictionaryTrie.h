@@ -76,6 +76,9 @@ private:
 
   /* Root node of the trie */
   MWTNode * root;
+
+  /* Destructor helper function. */
+  void deleteAll(MWTNode* curr);
 };
 
 #endif // DICTIONARY_TRIE_H

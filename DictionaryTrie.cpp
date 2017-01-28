@@ -110,4 +110,27 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
 }
 
 /* Destructor */
-DictionaryTrie::~DictionaryTrie(){}
+DictionaryTrie::~DictionaryTrie() {
+  deleteAll(root);
+}
+
+/* Destructor helper function. */
+void DictionaryTrie::deleteAll(MWTNode * curr) {
+
+  // No node to delete
+  if (!curr) {
+    return;
+  }
+
+  // Check to see if there are any children
+  for (int i = 0; i < LETTERS; i++) {
+
+    // There is a child
+    if (curr->children[i]) {
+      deleteAll(curr->children[i]);
+    }
+  }
+
+  // Delete the current node
+  delete curr;
+}
