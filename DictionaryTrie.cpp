@@ -37,7 +37,7 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
   }
 
   // Traverse down the trie
-  for (int level = 0; level < word.length(); level++) {
+  for (unsigned int level = 0; level < word.length(); level++) {
 
     // Create a new node at current position if there is none
     if (current->children[word[level] - 'a'] == NULL) {
@@ -73,7 +73,7 @@ bool DictionaryTrie::find(std::string word) const
   MWTNode * current = root;
 
   // Traverse the trie
-  for (int level = 0; level < word.length(); level++) {
+  for (unsigned int level = 0; level < word.length(); level++) {
 
     // Nowhere to go
     if (!current) {
