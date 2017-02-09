@@ -9,6 +9,7 @@
 #define DICTIONARY_TRIE_H
 
 #include <vector>
+#include <unordered_set>
 #include <string>
 #include <stack>
 #include <priority_queue>
@@ -23,8 +24,8 @@ struct compareFrequencies {
   *  and an associated frequency.
   *  Return true if the frequency of the first word is less than the frequency
   *  of the second word. */
-  bool operator() (std::vector<std::string, int> word1,
-    std::vector<std::string, int> word2) {
+  bool operator() (std::pair<std::string, int> word1,
+    std::pair<std::string, int> word2) {
       return word1.second < word2.second;
 
   }

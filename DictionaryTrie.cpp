@@ -109,7 +109,7 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix,
 {
   MWTNode * current = root;         // Current position in Trie
   std::vector<std::string> words;   // Container for most frequent words
-  std::priority_queue<std::vector<std::string, int>, compareFrequencies>
+  std::priority_queue<std::pair<std::string, int>, compareFrequencies>
     mostFrequent;
 
   // Traverse to the given prefix in the Trie
@@ -127,7 +127,7 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix,
 
       // Found a word, push to priority queue
       if (current->endWord) {
-        std::vector<std::string, int> foundWord(current->word, current->frequency);
+        std::pair<std::string, int> foundWord(current->word, current->frequency);
         mostFrequent.push(foundWord);
       }
 
