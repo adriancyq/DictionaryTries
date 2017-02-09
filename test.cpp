@@ -8,6 +8,14 @@
 #include "DictionaryBST.h"
 #include "DictionaryHashtable.h"
 #define LETTERS 26
+#include <cstdlib>
+#include <set>
+#include <string>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <iostream>
 using namespace std;
 
 
@@ -588,7 +596,7 @@ int main(int argc, char** argv)
   autocomplete6 = dt6.predictCompletions(complete6, numComplete6);
 
   // Iterate through list of autocompleted words
-  for (int i = 0; i < autocomplete6.size(); i++) {
+  for (unsigned int i = 0; i < autocomplete6.size(); i++) {
     cout << autocomplete6[i] << endl;
   }
 

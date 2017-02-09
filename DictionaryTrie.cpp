@@ -118,7 +118,7 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   std::priority_queue<std::pair<std::string, int>, std::vector<std::pair<std::string, int>>, CompareFrequencies> mostFrequent;
 
   // Traverse to the given prefix in the Trie
-  for (int level = 0; level < prefix.length(); level++) {
+  for (unsigned int level = 0; level < prefix.length(); level++) {
     if (current == NULL) {
       return words;
     }
@@ -148,7 +148,7 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   }
 
   // Populate the vector containing the most frequent words
-  for (int index = 0; index < num_completions; index++) {
+  for (unsigned int index = 0; index < num_completions; index++) {
     if (!mostFrequent.empty()) {
       words.push_back(mostFrequent.top().first);
       mostFrequent.pop();
