@@ -107,10 +107,16 @@ bool DictionaryTrie::find(std::string word) const
 std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix,
   unsigned int num_completions)
 {
-  MWTNode * current = root;         // Current position in Trie
   std::vector<std::string> words;   // Container for most frequent words
-  std::priority_queue<std::pair<std::string, int>, compareFrequencies>
-    mostFrequent;
+
+  // Check for empty string
+  if (prefix.empty()) {
+    std::cerr << "Invalid Input. Please retry with correct input" << std::endl;
+    return words;
+  }
+
+  MWTNode * current = root;         // Current position in Trie
+  std::priority_queue<std::pair<std::string, int>, std::vector<std::pair<std::string, int>>, CompareFrequencies> mostFrequent;
 
   // Traverse to the given prefix in the Trie
   for (int level = 0; level < prefix.length(); level++) {
@@ -121,8 +127,9 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix,
   // Reached position where prefix ends, begin looking for words with DFS
   std::stack<MWTNode*> stack;
   stack.push(current);
-  while (!stack.isEmpty()) {
-    current = stack.pop();
+  while (!stack.empty()) {
+    current = stack.top();
+    stack.pop();
     for (int i = 0; i < LETTERS; i++) {
 
       // Found a word, push to priority queue
@@ -140,7 +147,10 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix,
 
   // Populate the vector containing the most frequent words
   for (int index = 0; index < num_completions; index++) {
-    words.insert(mostFrequent.pop().first);
+    if (!mostFrequent.empty()) {
+      words.push_back(mostFrequent.top().first);
+      mostFrequent.pop();
+    }
   }
 
   return words;

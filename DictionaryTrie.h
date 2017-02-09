@@ -12,14 +12,14 @@
 #include <unordered_set>
 #include <string>
 #include <stack>
-#include <priority_queue>
+#include <queue>
 
 /*
 * Word-Frequency vector compare class.
 * Used in predictCompletions to get k most frequent words.
 */
-struct compareFrequencies {
-
+class CompareFrequencies {
+public:
   /* Compare the first vector with the second. Each vector contains a string,
   *  and an associated frequency.
   *  Return true if the frequency of the first word is less than the frequency
