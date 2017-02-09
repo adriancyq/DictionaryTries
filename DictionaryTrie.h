@@ -25,6 +25,9 @@ public:
   /* Marker for end of word. */
   bool endWord;
 
+  /* Hold the word */
+  std::string word;
+
   /* If this Node marks the end of a word, it holds how frequent this word
   * is searched for.
   */

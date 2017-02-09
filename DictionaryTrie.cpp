@@ -16,6 +16,21 @@ MWTNode::MWTNode() {
   }
 }
 
+/* ==========================================================================
+  Word-Frequency vector compare class
+  Used in predictCompletions to get k most frequent words.
+===========================================================================*/
+struct compareFrequencies {
+  /* Compare the first vector with the second. Each vector contains a string,
+  *  and an associated frequency.
+  *  Return true if the frequency of the first word is less than the frequency
+  *  of the second word. */
+  bool operator() (std::vector<std::string, int> word1,
+    std::vector<std::string, int> word2) {
+      return word1.second < word2.second;
+
+  }
+};
 
 /* Create a new Dictionary that uses a Trie back end */
 DictionaryTrie::DictionaryTrie(){
@@ -55,9 +70,11 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
     current->frequency = freq;
     return false;
   }
+
   // Mark end of word
   current->frequency = freq;
   current->endWord = true;
+  current->word = word;
   return true;
 }
 
@@ -103,9 +120,45 @@ bool DictionaryTrie::find(std::string word) const
  * is a word (and is among the num_completions most frequent completions
  * of the prefix)
  */
-std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, unsigned int num_completions)
+std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix,
+  unsigned int num_completions)
 {
-  std::vector<std::string> words;
+  MWTNode * current = root;         // Current position in Trie
+  std::vector<std::string> words;   // Container for most frequent words
+  std::priority_queue<std::vector<std::string, int>, compareFrequencies>
+    mostFrequent;
+
+  // Traverse to the given prefix in the Trie
+  for (int level = 0; level < prefix.length(); level++) {
+    if (!current) { return words; }
+    current = current->children[prefix[level] - 'a'];
+  }
+
+  // Reached position where prefix ends, begin looking for words with DFS
+  std::stack<MWTNode*> stack;
+  stack.push(current);
+  while (!stack.isEmpty()) {
+    current = stack.pop();
+    for (int i = 0; i < LETTERS; i++) {
+
+      // Found a word, push to priority queue
+      if (current->endWord) {
+        std::vector<std::string, int> foundWord(current->word, current->frequency);
+        mostFrequent.push(foundWord);
+      }
+
+      // Add all existing children
+      if (current->children[i]) {
+        stack.push(current->children[i]);
+      }
+    }
+  }
+
+  // Populate the vector containing the most frequent words
+  for (int index = 0; index < num_completions; index++) {
+    words.insert(mostFrequent.pop().first);
+  }
+
   return words;
 }
 
