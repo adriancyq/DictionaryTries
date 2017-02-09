@@ -104,8 +104,7 @@ bool DictionaryTrie::find(std::string word) const
  * is a word (and is among the num_completions most frequent completions
  * of the prefix)
  */
-std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix,
-  unsigned int num_completions)
+std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, unsigned int num_completions)
 {
   std::vector<std::string> words;   // Container for most frequent words
 
@@ -120,7 +119,9 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix,
 
   // Traverse to the given prefix in the Trie
   for (int level = 0; level < prefix.length(); level++) {
-    if (!current) { return words; }
+    if (current == NULL) {
+      return words;
+    }
     current = current->children[prefix[level] - 'a'];
   }
 
@@ -130,13 +131,14 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix,
   while (!stack.empty()) {
     current = stack.top();
     stack.pop();
-    for (int i = 0; i < LETTERS; i++) {
 
-      // Found a word, push to priority queue
-      if (current->endWord) {
-        std::pair<std::string, int> foundWord(current->word, current->frequency);
-        mostFrequent.push(foundWord);
-      }
+    // Found a word, push to priority queue
+    if (current->endWord) {
+      std::pair<std::string, int> foundWord(current->word, current->frequency);
+      mostFrequent.push(foundWord);
+    }
+
+    for (int i = 0; i < LETTERS; i++) {
 
       // Add all existing children
       if (current->children[i]) {

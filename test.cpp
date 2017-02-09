@@ -82,7 +82,7 @@ int main(int argc, char** argv)
   wit = words.begin();
   wen = words.end();
   for(; wit != wen; ++wit) {
-    
+
     cout << "Inserting: \"" << *wit << "\"... ";
     t_bst = d_bst.insert(*wit);
     t_ht = d_ht.insert(*wit);
@@ -187,7 +187,7 @@ int main(int argc, char** argv)
   wit2 = words2.begin();
   wen2 = words2.end();
   for(; wit2 != wen2; ++wit2) {
-    
+
     cout << "Inserting: \"" << *wit2 << "\"... ";
     t_bst2 = d_bst2.insert(*wit2);
     t_ht2 = d_ht2.insert(*wit2);
@@ -292,7 +292,7 @@ int main(int argc, char** argv)
   wit3 = words3.begin();
   wen3 = words3.end();
   for(; wit3 != wen3; ++wit3) {
-    
+
     cout << "Inserting: \"" << *wit3 << "\"... ";
     t_bst3 = d_bst3.insert(*wit3);
     t_ht3 = d_ht3.insert(*wit3);
@@ -397,7 +397,7 @@ int main(int argc, char** argv)
   wit4 = words4.begin();
   wen4 = words4.end();
   for(; wit4 != wen4; ++wit4) {
-    
+
     cout << "Inserting: \"" << *wit4 << "\"... ";
     t_bst4 = d_bst4.insert(*wit4);
     t_ht4 = d_ht4.insert(*wit4);
@@ -431,7 +431,7 @@ int main(int argc, char** argv)
 
   cout << endl;
 
-   /* ========================================================================
+  /* ========================================================================
   Test 5: Insert 5 words into BST, HashTable, and Trie, then reinsert to check
   that they are already in the container.
   ======================================================================== */
@@ -502,7 +502,7 @@ int main(int argc, char** argv)
   wit5 = words5.begin();
   wen5 = words5.end();
   for(; wit5 != wen5; ++wit5) {
-    
+
     cout << "Inserting: \"" << *wit5 << "\"... ";
     t_bst5 = d_bst5.insert(*wit5);
     t_ht5 = d_ht5.insert(*wit5);
@@ -536,6 +536,62 @@ int main(int argc, char** argv)
 
   cout << endl;
 
+  /* ========================================================================
+  Test 6: Insert 5 words into BST, HashTable, and Trie, then reinsert to check
+  that they are already in the container.
+  ======================================================================== */
+  //Initialize words
+  vector<std::string> words6;
+  vector<string>::iterator wit6;
+  vector<string>::iterator wen6;
 
+  //Initialize data structure
+  DictionaryTrie dt6;
+
+  // Success/failure of insertion
+  int tt6;
+
+  // Words to insert
+  words6.push_back("an");
+  words6.push_back("ant");
+  words6.push_back("auntie");
+  words6.push_back("beetle");
+  words6.push_back("animal");
+
+  // Insert into three data structures
+  cout << "Inserting into Trie-based Dictionary for test 6..." << endl;
+
+  // Iterator boundaries
+  wit6 = words6.begin();
+  wen6 = words6.end();
+
+  int frequency6 = 1;
+
+  // Insert each word into each data structure
+  for(; wit6 != wen6; ++wit6) {
+    cout << "Inserting: \"" << *wit6 << "\"... ";
+    tt6 = dt6.insert(*wit6, frequency6);
+    frequency6 += 10;
+
+    // All successful
+    if(tt6) {
+      cout << "PASSED! :D ";
+    }
+    cout << endl;
+  }
+
+  // Use our autocomplete feature
+  vector<std::string> autocomplete6;
+  std::string complete6 = "an";
+  int numComplete6 = 2;
+  cout << endl << "Testing autocomplete with prefix \"" << complete6 << "\": " << endl;
+  autocomplete6 = dt6.predictCompletions(complete6, numComplete6);
+
+  // Iterate through list of autocompleted words
+  for (int i = 0; i < autocomplete6.size(); i++) {
+    cout << autocomplete6[i] << endl;
+  }
+
+  cout << "We wanted " << numComplete6 << " words and got " << autocomplete6.size() << "." << endl;
   return 0;
 }
