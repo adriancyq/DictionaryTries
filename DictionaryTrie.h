@@ -10,6 +10,25 @@
 
 #include <vector>
 #include <string>
+#include <stack>
+#include <priority_queue>
+
+/*
+* Word-Frequency vector compare class.
+* Used in predictCompletions to get k most frequent words.
+*/
+struct compareFrequencies {
+
+  /* Compare the first vector with the second. Each vector contains a string,
+  *  and an associated frequency.
+  *  Return true if the frequency of the first word is less than the frequency
+  *  of the second word. */
+  bool operator() (std::vector<std::string, int> word1,
+    std::vector<std::string, int> word2) {
+      return word1.second < word2.second;
+
+  }
+};
 
 /**
 * Multi-way Trie node class. Each node holds a reference to each child, to
