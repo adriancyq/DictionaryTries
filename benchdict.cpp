@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
 	int num_iterations = atoi(argv[3]); //converts 3rd arg string to int
 	std::string nameofFile = argv[4];
 	int runDict = RUNDICTS; 
-	double addMWT = 0; 					//summation of time for MWT
+					 					//summation of time for MWT
 	double addBST = 0;					//summation of time for BST
 	double addHash = 0;					//summation of time for Hash
 	int wordAmount = 0;					//number of words for BST
@@ -111,7 +111,7 @@ int main(int argc, char* argv[]){
 
 		//Finds the average time
 		addBST = (addBST/runDict);
-		cout<<wordAmount<<"   vs    "<<addBST<<endl;
+		cout<<"word amount:" <<wordAmount<<"   in    "<<"time:"<<addBST<<endl;
 	}
 	//deletes BST
 	delete myDictBST;
@@ -165,7 +165,7 @@ int main(int argc, char* argv[]){
 		
 		//Finds the average time
 		addHash = (addHash/runDict);
-		cout<<wordAmountHash<<"    vs    "<<addHash<<endl;
+		cout<<"word amount:"<<wordAmountHash<<"    in    "<<addHash<<endl;
 	}
 	//deletes Hash
 	delete myDictHash;
@@ -174,6 +174,8 @@ int main(int argc, char* argv[]){
 	std::vector<std::string> DictMWT;
 
 	std::cout<<"DictionaryMWT class benchmark runs"<<endl;
+
+	double addMWT = 0;
 
 	for (int i=0; i<num_iterations; i++){
 
@@ -218,7 +220,7 @@ int main(int argc, char* argv[]){
 		
 		//Finds the average time
 		addMWT = (addMWT/runDict);
-		cout<<wordAmountMWT<<"    vs    "<<addMWT<<endl;
+		cout<<"word amount:"<<wordAmountMWT<<"    in    "<<addMWT<<endl;
 	}
 	//deletes MWT
 	delete myDictMWT;
