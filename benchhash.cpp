@@ -156,7 +156,7 @@ int main (int argc, char* argv[]) {
 
 	// Hash "numWords" words with our two functions and see how many collisions
 	// we get.
-	for (int i = 0; i < numWords; i++) {
+	for (unsigned int i = 0; i < numWords; i++) {
 		getline(inputStream, word);
 
 		// Use two different hashing functions
@@ -187,8 +187,8 @@ int main (int argc, char* argv[]) {
 	double average2 = 0;
 
 	// Populate hit counts for hash function #1
-	for (int i = 0; i <= maxHits1; i++) {
-		for (int j = 0; j < tableSize; j++) {
+	for (unsigned int i = 0; i <= maxHits1; i++) {
+		for (unsigned int j = 0; j < tableSize; j++) {
 			if (table1[j] == i) {
 				numHits1[i]++;
 			}
@@ -208,7 +208,7 @@ int main (int argc, char* argv[]) {
 	// Statistics for hash function #1
 	cout << "Printing the statistics for hashFunction1 with hash table size " << tableSize << endl;
 	cout << "#hits		#slots receiving the #hits" << endl;
-	for (int i = 0; i <= maxHits1; i++) {
+	for (unsigned int i = 0; i <= maxHits1; i++) {
 
 		// Don't output if no slots got "i" hits
 		if (numHits1[i] != 0) {
@@ -223,8 +223,8 @@ int main (int argc, char* argv[]) {
 
 
 	// Populate hit count for hash function #2
-	for (int i = 0; i <= maxHits2; i++) {
-		for (int j = 0; j < tableSize; j++) {
+	for (unsigned int i = 0; i <= maxHits2; i++) {
+		for (unsigned int j = 0; j < tableSize; j++) {
 			if (table2[j] == i) {
 				numHits2[i]++;
 			}
@@ -244,7 +244,7 @@ int main (int argc, char* argv[]) {
 	// Statistics for hash function #2
 	cout << "Printing the statistics for hashFunction2" << endl;
 	cout << "#hits		#slots receiving the #hits" << endl;
-	for (int i = 0; i <= maxHits2; i++) {
+	for (unsigned int i = 0; i <= maxHits2; i++) {
 
 		// Don't output if no slots got "i" hits
 		if (numHits2[i] != 0) {
