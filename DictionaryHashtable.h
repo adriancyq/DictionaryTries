@@ -1,6 +1,11 @@
-/**
- *  CSE 100 PA3 C++ Autocomplete
- *  Authors: Jor-el Briones, Christine Alvarado
+/*
+ * File:      DictionaryHashtable.h
+ * Authors:   Jonathan Chiu, Adrian Cordova
+ * Class:     CSE 100, Winter 2017
+ * Date:      2/7/2017
+ *
+ * Implementation of a dictionary with a hashtable. Supports insertion and
+ * lookup.
  */
 
 #ifndef DICTIONARY_HASHTABLE_H
@@ -8,11 +13,12 @@
 
 #include <string>
 #include <unordered_set>
+
 /**
  *  The class for a dictionary ADT, implemented as a Hashtable
  * When you implement this class, you MUST use a Hashtable
- * in its implementation.  The C++ unordered_set implements 
- * a Hashtable, so we strongly suggest you use that to store 
+ * in its implementation.  The C++ unordered_set implements
+ * a Hashtable, so we strongly suggest you use that to store
  * the dictionary.
  */
 class DictionaryHashtable
@@ -32,8 +38,8 @@ public:
   ~DictionaryHashtable();
 
 private:
-  // Add your own data members and methods here
-	//hash set object
+
+	// Hash set object
 	std::unordered_set<std::string> hashSet;
 };
 

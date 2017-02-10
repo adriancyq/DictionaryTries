@@ -1,8 +1,13 @@
-/**
- *  CSE 100 PA3 C++ Autocomplete
- *  Authors: Jor-el Briones, Christine Alvarado
+/*
+ * File:      DictionaryTrie.h
+ * Authors:   Jonathan Chiu, Adrian Cordova
+ * Class:     CSE 100, Winter 2017
+ * Date:      2/7/2017
+ *
+ * Implementation of a multiway trie and its node. Supports insertion, lookup,
+ * and completion prediction, given a prefix string.
+ *
  */
-
 #define LETTERS 26
 
 #ifndef DICTIONARY_TRIE_H
@@ -15,26 +20,34 @@
 #include <queue>
 
 /*
-* Word-Frequency vector compare class.
-* Used in predictCompletions to get k most frequent words.
-*/
+ * Compares word-frequency pairs.
+ * Given two pairs of the form <string, frequency>, determine if the first
+ * pair has greater frequency than the second.  Used in predictCompletions to
+ * get k most frequent words.
+ */
 class CompareFrequencies {
 public:
-  /* Compare the first vector with the second. Each vector contains a string,
-  *  and an associated frequency.
-  *  Return true if the frequency of the first word is less than the frequency
-  *  of the second word. */
-  bool operator() (std::pair<std::string, int> word1,
-    std::pair<std::string, int> word2) {
-      return word1.second < word2.second;
+
+  /*
+   * Given two pairs of the form <string, frequency>, determine if the first
+   * pair has greater frequency than the second. Return true if first pair
+   * contains a frequency greater than the second, or false otherwise.
+   */
+  bool operator() (
+    std::pair<std::string, int> word1,
+    std::pair<std::string, int> word2)
+  {
+    return word1.second < word2.second;
 
   }
 };
 
-/**
-* Multi-way Trie node class. Each node holds a reference to each child, to
-* ensure faster find.
-*/
+/*
+ * Multiway trie node class.
+ * Each node holds a reference to each child. If the node represents the end
+ * of a word, the "endWord" field will be true, "word" will contain the word,
+ * and will have an associated "frequency".
+ */
 class MWTNode
 {
 public:
@@ -48,20 +61,20 @@ public:
   /* Hold the word */
   std::string word;
 
-  /* If this Node marks the end of a word, it holds how frequent this word
-  * is searched for.
-  */
+  /*
+   * If this Node marks the end of a word, it holds how frequent this word
+   * is searched for.
+   */
   int frequency;
 
   /* Constructor for the multiway trie node. */
   MWTNode();
 };
 
-/**
- *  The class for a dictionary ADT, implemented as a trie
- *  You may implement this class as either a mulit-way trie
- *  or a ternary search trie, but you must use one or the other.
- *
+/*
+ * The class for a dictionary ADT, implemented as a trie
+ * You may implement this class as either a mulit-way trie
+ * or a ternary search trie, but you must use one or the other.
  */
 class DictionaryTrie
 {

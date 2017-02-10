@@ -1,6 +1,11 @@
-/**
- *  CSE 100 PA3 C++ Autocomplete
- *  Authors: Jor-el Briones, Christine Alvarado
+/*
+ * File:      DictionaryBST.h
+ * Authors:   Jonathan Chiu, Adrian Cordova
+ * Class:     CSE 100, Winter 2017
+ * Date:      2/7/2017
+ *
+ * Implementation of a dictionary with a BST backend. Supports insertion and
+ * lookup.
  */
 
 #ifndef DICTIONARY_BST_H

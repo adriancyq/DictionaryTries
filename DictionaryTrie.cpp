@@ -1,12 +1,23 @@
+/*
+ * File:      DictionaryTrie.cpp
+ * Authors:   Jonathan Chiu, Adrian Cordova
+ * Class:     CSE 100, Winter 2017
+ * Date:      2/7/2017
+ *
+ * Implementation of a multiway trie and its node. Supports insertion, lookup,
+ * and completion prediction, given a prefix string.
+ *
+ */
+
 #include "util.h"
 #include "DictionaryTrie.h"
-
 #define LETTERS 26
 
-/* ==========================================================================
-  Multi-way Trie Methods
-===========================================================================*/
-MWTNode::MWTNode() {
+/*
+ * Constructor function for a multiway trie node.
+ */
+MWTNode::MWTNode()
+{
   endWord = false;
   frequency = 0;
 
@@ -16,35 +27,39 @@ MWTNode::MWTNode() {
   }
 }
 
-/* Create a new Dictionary that uses a Trie back end */
-DictionaryTrie::DictionaryTrie(){
+/*
+ * Constructor function for a multiway trie.
+ */
+DictionaryTrie::DictionaryTrie()
+{
   root = new MWTNode();
 }
 
-/* Insert a word with its frequency into the dictionary.
+/*
+ * Insert a word with its frequency into the dictionary.
  * Return true if the word was inserted, and false if it
  * was not (i.e. it was already in the dictionary or it was
- * invalid (empty string) */
+ * invalid (empty string)
+ */
 bool DictionaryTrie::insert(std::string word, unsigned int freq)
 {
-  // Start at the root
-  MWTNode * current = root;
+  MWTNode * current = root;       // Current position in trie
+  int next;                       // Index of next child
 
   // Nothing to insert
-  if (word.length() == 0) {
-    return false;
-  }
+  if (word.length() == 0) { return false; }
 
   // Traverse down the trie
   for (unsigned int level = 0; level < word.length(); level++) {
+    next = word[level] - 'a';
 
     // Create a new node at current position if there is none
-    if (current->children[word[level] - 'a'] == NULL) {
-      current->children[word[level] - 'a'] = new MWTNode();
+    if (!current->children[next]) {
+      current->children[next] = new MWTNode();
     }
 
-    // Move down
-    current = current->children[word[level] - 'a'];
+    // Move down one level
+    current = current->children[next];
   }
 
   // Check if the word was already inserted
@@ -62,39 +77,39 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
   return true;
 }
 
-/* Return true if word is in the dictionary, and false otherwise */
+/*
+ * Determine whether a given string is in the dictionary.
+ * Return true if word is in the dictionary, and false otherwise
+ */
 bool DictionaryTrie::find(std::string word) const
 {
   // Check for invalid (empty) strings
-  if (word.length() == 0) {
-    return false;
-  }
+  if (word.length() == 0) { return false; }
 
-  // Start looking at the root
+  // Current position in the trie
   MWTNode * current = root;
+  int next;
 
-  // Traverse the trie
+  // Traverse down valid paths within the trie
   for (unsigned int level = 0; level < word.length(); level++) {
+    if (!current) { return false; }
 
-    // Nowhere to go
-    if (!current) {
-      return false;
-    }
-
-    // Move down
-    current = current->children[word[level] - 'a'];
+    // Move down a level
+    next = word[level] - 'a';
+    current = current->children[next];
   }
 
-  // Check if we marked this node to be the end of a word
-  if (current->endWord) {
-    return true;
-  }
+  // Found our word
+  if (current->endWord) { return true; }
 
   // Word is not in the trie
   return false;
 }
 
-/* Return up to num_completions of the most frequent completions
+/*
+ * Given a string prefix, determine most likely possible completions.
+ *
+ * Return up to num_completions of the most frequent completions
  * of the prefix, such that the completions are words in the dictionary.
  * These completions should be listed from most frequent to least.
  * If there are fewer than num_completions legal completions, this
@@ -104,7 +119,9 @@ bool DictionaryTrie::find(std::string word) const
  * is a word (and is among the num_completions most frequent completions
  * of the prefix)
  */
-std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, unsigned int num_completions)
+std::vector<std::string> DictionaryTrie::predictCompletions(
+  std::string prefix,
+  unsigned int num_completions)
 {
   std::vector<std::string> words;   // Container for most frequent words
 
@@ -115,17 +132,22 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   }
 
   MWTNode * current = root;         // Current position in Trie
-  std::priority_queue<std::pair<std::string, int>, std::vector<std::pair<std::string, int>>, CompareFrequencies> mostFrequent;
+  int next;
 
-  // Traverse to the given prefix in the Trie
+  // Keep in sorted order the most frequent completions
+  std::priority_queue<std::pair<std::string, int>,
+    std::vector<std::pair<std::string, int>>,
+    CompareFrequencies>
+      mostFrequent;
+
+  // Traverse to the given prefix in the trie
   for (unsigned int level = 0; level < prefix.length(); level++) {
-    if (current == NULL) {
-      return words;
-    }
-    current = current->children[prefix[level] - 'a'];
+    if (current == NULL) { return words; }
+    next = prefix[level] - 'a';
+    current = current->children[next];
   }
 
-  // Reached position where prefix ends, begin looking for words with DFS
+  // Begin looking for completed words with DFS
   std::stack<MWTNode*> stack;
   stack.push(current);
   while (!stack.empty()) {
@@ -138,16 +160,15 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
       mostFrequent.push(foundWord);
     }
 
+    // Add all existing children
     for (int i = 0; i < LETTERS; i++) {
-
-      // Add all existing children
       if (current->children[i]) {
         stack.push(current->children[i]);
       }
     }
   }
 
-  // Populate the vector containing the most frequent words
+  // Populate the vector with "num_completions" most frequent words
   for (unsigned int index = 0; index < num_completions; index++) {
     if (!mostFrequent.empty()) {
       words.push_back(mostFrequent.top().first);
@@ -158,23 +179,25 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   return words;
 }
 
-/* Destructor */
-DictionaryTrie::~DictionaryTrie() {
+/*
+ * Destructor for the multiway trie.
+ */
+DictionaryTrie::~DictionaryTrie()
+{
   deleteAll(root);
 }
 
-/* Destructor helper function. */
-void DictionaryTrie::deleteAll(MWTNode * curr) {
+/*
+ * Helper function for the destructor of the multiway trie.
+ */
+void DictionaryTrie::deleteAll(MWTNode * curr)
+{
 
   // No node to delete
-  if (!curr) {
-    return;
-  }
+  if (!curr) { return; }
 
-  // Check to see if there are any children
+  // Preorder traversal
   for (int i = 0; i < LETTERS; i++) {
-
-    // There is a child
     if (curr->children[i]) {
       deleteAll(curr->children[i]);
     }

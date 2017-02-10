@@ -1,11 +1,24 @@
+/*
+ * File:      DictionaryBST.cpp
+ * Authors:   Jonathan Chiu, Adrian Cordova
+ * Class:     CSE 100, Winter 2017
+ * Date:      2/7/2017
+ *
+ * Implementation of a dictionary with a BST backend. Supports insertion and
+ * lookup.
+ */
 #include "util.h"
 #include "DictionaryBST.h"
 
+/*
+ * Constructor for a dictionary with a BST backend.
+ */
+DictionaryBST::DictionaryBST() {}
 
-/* Create a new Dictionary that uses a BST back end */
-DictionaryBST::DictionaryBST(){}
-
-/* Insert a word into the dictionary. */
+/*
+ * Insert a word into the dictionary.
+ * Return true on successful insertion, or false otherwise.
+ */
 bool DictionaryBST::insert(std::string word)
 {
 
@@ -17,7 +30,10 @@ bool DictionaryBST::insert(std::string word)
   return success.second;
 }
 
-/* Return true if word is in the dictionary, and false otherwise */
+/*
+ * See if a word exists in the dictionary.
+ * Return true if word is in the dictionary, and false otherwise.
+ */
 bool DictionaryBST::find(std::string word) const
 {
 
@@ -25,5 +41,7 @@ bool DictionaryBST::find(std::string word) const
   return dict.find(word) != dict.end();
 }
 
-/* Destructor */
-DictionaryBST::~DictionaryBST(){}
+/*
+ * Destructor for the dictionary.
+ */
+DictionaryBST::~DictionaryBST() {}

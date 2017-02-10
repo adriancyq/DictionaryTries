@@ -1,3 +1,12 @@
+/*
+ * File:      test.cpp
+ * Authors:   Jonathan Chiu, Adrian Cordova
+ * Class:     CSE 100, Winter 2017
+ * Date:      2/7/2017
+ *
+ * Tests for the implementation of the dictionary with multiway trie, bst,
+ * and hashtable backends.
+ */
 #include<iostream>
 #include<string>
 #include<algorithm>
@@ -17,7 +26,6 @@
 #include <sstream>
 #include <iostream>
 using namespace std;
-
 
 int main(int argc, char** argv)
 {
