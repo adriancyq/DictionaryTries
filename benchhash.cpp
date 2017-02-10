@@ -1,6 +1,11 @@
-/*CSE 100 PA2
-Adrian Cordova y Quiroz A12010305
-Jonathan Chiu PIDDDDDDDDDD */
+/*
+ * File:      benchhash.cpp
+ * Authors:   Jonathan Chiu A12113428, Adrian Cordova A12010305
+ * Class:     CSE 100, Winter 2017
+ * Date:      2/7/2017
+ *
+ * Benchmarking the summation and bernstein hash functions.
+ */
 #include "DictionaryTrie.h"
 #include "DictionaryBST.h"
 #include "DictionaryHashtable.h"
