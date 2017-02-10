@@ -88,14 +88,12 @@ int main(int argc, char* argv[]) {
 	  }
 
 	  //Grab following 100 words to be found
-	  // for(int l=0; l<100; l++){
-		//
-	  //   getline(inputfile, readLine);
-		//
-	  //   DictBST.push_back(readLine);
-	  // }
+	  for(int l=0; l<100; l++){
 
-		Utils::load_vector(DictBST, inputfile, 100);
+	    getline(inputfile, readLine);
+
+	    DictBST.push_back(readLine);
+	  }
 
 	  //times process of finding 100 words
 	  for(int n=0; n<runDict; n++){
@@ -143,15 +141,13 @@ int main(int argc, char* argv[]) {
 	    cout<<"Warning! DictionaryHashTable does not have enough words"<<endl;
 	  }
 
-	  // //Grab following 100 words to be found
-	  // for(int l=0; l<100; l++){
-		//
-	  //   getline(inputfile, readLine);
-		//
-	  //   DictHash.push_back(readLine);
-	  // }
+	  //Grab following 100 words to be found
+	  for(int l=0; l<100; l++){
 
-		Utils::load_vector(DictHash, inputfile, 100);
+	    getline(inputfile, readLine);
+
+	    DictHash.push_back(readLine);
+	  }
 
 	  //times process of finding 100 words
 	  for(int n=0; n<runDict; n++){
@@ -198,15 +194,13 @@ int main(int argc, char* argv[]) {
 	    cout<<"Warning! DictionaryMWT does not have enough words"<<endl;
 	  }
 
-	  // //Grab following 100 words to be found
-	  // for(int l=0; l<100; l++){
-		//
-	  //   getline(inputfile, readLine);
-		//
-	  //   DictMWT.push_back(readLine);
-	  // }
+	  //Grab following 100 words to be found
+	  for(int l=0; l<100; l++){
 
-		Utils::load_vector(DictMWT, inputfile, 100);
+	    getline(inputfile, readLine);
+
+	    DictMWT.push_back(readLine);
+	  }
 
 	  //times process of finding 100 words
 	  for(int n=0; n<runDict; n++){
