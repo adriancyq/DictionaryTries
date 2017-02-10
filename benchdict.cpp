@@ -23,7 +23,7 @@ int main(int argc, char* argv[]){
 	if(argc != argamount){
 
 		std::cout<<"Wrong number of arguments"<<std::endl;
-
+		return 0;
 	}
 
 	int min_size = atoi(argv[1]); //converts 1st arg string to int
