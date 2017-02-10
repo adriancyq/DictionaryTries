@@ -27,7 +27,7 @@ int summationHash(string key, int tableSize)
 
 	// Sum the ASCII value of each letter
 	int sum = 0;
-	for (int i = 0; i < key.length(); i++) {
+	for (unsigned int i = 0; i < key.length(); i++) {
 		sum += key[i];
 	}
 
@@ -44,7 +44,7 @@ int summationHash(string key, int tableSize)
 unsigned bernsteinHash(string key, int tableSize)
 {
 	long sum = 0;
-	for (int i = 0; i < key.length(); i++) {
+	for (unsigned int i = 0; i < key.length(); i++) {
 	  sum = 33 * sum + key[i];
 	}
 	return sum % tableSize;
@@ -151,8 +151,8 @@ int main (int argc, char* argv[]) {
 	unsigned int maxHits1 = 0;
 	unsigned int maxHits2 = 0;
 
-	vector<int> table1(tableSize, 0);
-	vector<int> table2(tableSize, 0);
+	vector<unsigned int> table1(tableSize, 0);
+	vector<unsigned int> table2(tableSize, 0);
 
 	// Hash "numWords" words with our two functions and see how many collisions
 	// we get.
