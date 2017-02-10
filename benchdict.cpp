@@ -31,9 +31,9 @@ int main(int argc, char* argv[]){
 	int num_iterations = atoi(argv[3]); //converts 3rd arg string to int
 	std::string nameofFile = argv[4];
 	int runDict = RUNDICTS; 
-					 					//summation of time for MWT
-	long addBST = 0;					//summation of time for BST
-	long addHash = 0;					//summation of time for Hash
+	long addMWT = 0;				 	//summation of time for MWT
+	double addBST = 0;					//summation of time for BST
+	double addHash = 0;					//summation of time for Hash
 	int wordAmount = 0;					//number of words for BST
 	int wordAmountHash = 0;
 	int wordAmountMWT = 0;
@@ -44,9 +44,9 @@ int main(int argc, char* argv[]){
 	Timer timeTwo;
 	Timer timeThree;
 
-	//Dictionaries created
-	DictionaryBST *myDictBST = new DictionaryBST();		
+	//Dictionaries created	
 	DictionaryHashtable	*myDictHash = new DictionaryHashtable();
+	DictionaryBST *myDictBST = new DictionaryBST();	
 	DictionaryTrie *myDictMWT = new DictionaryTrie();
 
 	//files are opened
@@ -103,7 +103,7 @@ int main(int argc, char* argv[]){
 				myDictBST->find(DictBST[p]);
 			}
 
-			long BSTtime = timeOne.end_timer();
+			double BSTtime = timeOne.end_timer();
 
 			//adds the times together
 			addBST = addBST + BSTtime;
@@ -157,7 +157,7 @@ int main(int argc, char* argv[]){
 				myDictHash->find(DictHash[p]);
 			}
 
-			long Hashtime = timeTwo.end_timer();
+			double Hashtime = timeTwo.end_timer();
 
 			//adds the times together
 			addHash = addHash + Hashtime;
@@ -174,8 +174,6 @@ int main(int argc, char* argv[]){
 	std::vector<std::string> DictMWT;
 
 	std::cout<<"DictionaryMWT class benchmark runs"<<endl;
-
-	long addMWT = 0;
 
 	for (int i=0; i<num_iterations; i++){
 
@@ -212,7 +210,7 @@ int main(int argc, char* argv[]){
 				myDictMWT->find(DictMWT[p]);
 			}
 
-			long MWTtime = timeThree.end_timer();
+			double MWTtime = timeThree.end_timer();
 
 			//adds the times together
 			addMWT = addMWT + MWTtime;
