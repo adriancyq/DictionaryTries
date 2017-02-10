@@ -118,8 +118,6 @@ int main(int argc, char* argv[]){
 
 	std::cout<<"DictionaryHashTable class benchmark runs"<<endl;
 
-	wordAmount = 0;
-
 	double addHash = 0;
 
 	for (int i=0; i<num_iterations; i++){
@@ -128,11 +126,11 @@ int main(int argc, char* argv[]){
 
 		inputfile.open(nameofFile);
 
-		wordAmount = min_size + (i*step_size);
+		wordAmountHash = min_size + (i*step_size);
 
 		//Loads word into dict from utils.h
-		if(wordAmount<=count){
-			Utils::load_dict(*myDictHash, inputfile, wordAmount);
+		if(wordAmountHash<=count){
+			Utils::load_dict(*myDictHash, inputfile, wordAmountHash);
 		}
 
 		else{
@@ -165,7 +163,7 @@ int main(int argc, char* argv[]){
 		
 		//Finds the average time
 		addHash = (addHash/runDict);
-		cout<<wordAmount<<"    vs    "<<addHash<<endl;
+		cout<<wordAmountHash<<"    vs    "<<addHash<<endl;
 	}
 	//deletes Hash
 	delete myDictHash;
@@ -175,8 +173,6 @@ int main(int argc, char* argv[]){
 
 	std::cout<<"DictionaryMWT class benchmark runs"<<endl;
 
-	wordAmount = 0;
-
 	double addMWT = 0;
 
 	for (int i=0; i<num_iterations; i++){
@@ -185,11 +181,11 @@ int main(int argc, char* argv[]){
 
 		inputfile.open(nameofFile);
 
-		wordAmount = min_size + (i*step_size);
+		wordAmountMWT = min_size + (i*step_size);
 
 		//Loads word into dict from utils.h
 		if(wordAmount<=count){
-			Utils::load_dict(*myDictMWT, inputfile, wordAmount);
+			Utils::load_dict(*myDictMWT, inputfile, wordAmountMWT);
 		}
 
 		else{
@@ -222,7 +218,7 @@ int main(int argc, char* argv[]){
 		
 		//Finds the average time
 		addMWT = (addMWT/runDict);
-		cout<<wordAmount<<"    vs    "<<addMWT<<endl;
+		cout<<wordAmountMWT<<"    vs    "<<addMWT<<endl;
 	}
 	//deletes MWT
 	delete myDictMWT;
