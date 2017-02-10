@@ -31,6 +31,11 @@ int main(int argc, char* argv[]){
 	int num_iterations = atoi(argv[3]); //converts 3rd arg string to int
 	std::string nameofFile = argv[4];
 	int runDict = RUNDICTS; 
+	double addMWT = 0; 					//summation of time for MWT
+	double addBST = 0;					//summation of time for BST
+	double addHash = 0;					//summation of time for Hash
+	int wordAmount = 0;					//number of words for BST
+
 
 	//Timers created
 	Timer timeOne;
@@ -60,10 +65,6 @@ int main(int argc, char* argv[]){
 	std::vector<std::string> DictBST;
 
 	std::cout<<"DictionaryBST class benchmark runs"<<endl;
-
-	int wordAmount = 0;
-
-	double addBST = 0;
 
 	for (int i=0; i<num_iterations; i++){
 
@@ -118,7 +119,6 @@ int main(int argc, char* argv[]){
 
 	std::cout<<"DictionaryHashTable class benchmark runs"<<endl;
 
-	double addHash = 0;
 
 	for (int i=0; i<num_iterations; i++){
 
@@ -173,8 +173,6 @@ int main(int argc, char* argv[]){
 
 	std::cout<<"DictionaryMWT class benchmark runs"<<endl;
 
-	double addMWT = 0;
-
 	for (int i=0; i<num_iterations; i++){
 
 		inputfile.close();
@@ -184,7 +182,7 @@ int main(int argc, char* argv[]){
 		wordAmountMWT = min_size + (i*step_size);
 
 		//Loads word into dict from utils.h
-		if(wordAmount<=count){
+		if(wordAmountMWT<=count){
 			Utils::load_dict(*myDictMWT, inputfile, wordAmountMWT);
 		}
 
