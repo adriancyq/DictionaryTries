@@ -22,4 +22,5 @@ util.o: util.h
 
 clean:
 	rm -f test *.o core* *~
-
+	rm -rf benchdict.dSYM
+	rm benchdict

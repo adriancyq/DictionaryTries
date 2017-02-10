@@ -12,6 +12,8 @@
 #include "util.h"
 #include "DictionaryTrie.h"
 #define LETTERS 26
+#define ALPHABET 27
+#define SPACE 26
 
 /*
  * Constructor function for a multiway trie node.
@@ -22,7 +24,7 @@ MWTNode::MWTNode()
   frequency = 0;
 
   // Initialize the children
-  for(int i = 0; i < LETTERS; i++) {
+  for(int i = 0; i < ALPHABET; i++) {
       children[i] = NULL;
   }
 }
@@ -52,6 +54,16 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
   // Traverse down the trie
   for (unsigned int level = 0; level < word.length(); level++) {
     next = word[level] - 'a';
+
+    // Next char is space
+    if (word[level] == ' ') {
+      next = SPACE;
+    }
+
+    // Invalid char
+    if (next < 0 || next > 26) {
+      return false;
+    }
 
     // Create a new node at current position if there is none
     if (!current->children[next]) {
@@ -96,9 +108,22 @@ bool DictionaryTrie::find(std::string word) const
 
     // Move down a level
     next = word[level] - 'a';
+
+    // Next char is space
+    if (word[level] == ' ') {
+      next = SPACE;
+    }
+
+    // Invalid char
+    if (next < 0 || next > 26) {
+      return false;
+    }
+
     current = current->children[next];
   }
 
+  if (!current) { return false; }
+  
   // Found our word
   if (current->endWord) { return true; }
 

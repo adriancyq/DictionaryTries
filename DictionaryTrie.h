@@ -9,6 +9,7 @@
  *
  */
 #define LETTERS 26
+#define ALPHABET 27
 
 #ifndef DICTIONARY_TRIE_H
 #define DICTIONARY_TRIE_H
@@ -53,7 +54,7 @@ class MWTNode
 public:
 
   /* Array of children for constant access. */
-  MWTNode * children[LETTERS];
+  MWTNode * children[ALPHABET];
 
   /* Marker for end of word. */
   bool endWord;

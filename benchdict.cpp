@@ -19,7 +19,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
 	// Check that we have 4 user-specified arguments
-	if (argc != 5){
+	if (argc >= 5){
 		cerr << "Wrong number of arguments, " << argc << " given." << endl;
 		return -1;
 	}
@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
 	int stepSize = 2;
 	int numIterations = 2;
 	string fileName = "dictionary/smalldictionary.txt";
-	
+
 	// Useful values
 	unsigned int dictSize;
 	unsigned int nextWords = 100;
@@ -137,10 +137,8 @@ int main(int argc, char* argv[]) {
 		// Time how long it takes to find these 100 words
 		for (int i = 0; i < RUNDICTS; i++) {
 			timeMWT.begin_timer();
+
 			for (int j = 0; j < 100; j++) {
-				cout << wordsMWT.size() << endl;
-				cout << "here?" << endl;
-				cout << j << endl;
 				dictMWT->find(wordsMWT[j]);
 			}
 
