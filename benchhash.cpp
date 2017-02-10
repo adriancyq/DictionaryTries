@@ -153,11 +153,14 @@ int main (int argc, char* argv[]) {
 
 	vector<unsigned int> table1(tableSize, 0);
 	vector<unsigned int> table2(tableSize, 0);
+	vector<string> wordsToAdd;
+
+	Utils::load_vector(wordsToAdd, inputStream, numWords);
 
 	// Hash "numWords" words with our two functions and see how many collisions
 	// we get.
 	for (unsigned int i = 0; i < numWords; i++) {
-		getline(inputStream, word);
+		word = wordsToAdd[i];
 
 		// Use two different hashing functions
 		key1 = summationHash(word, tableSize);
