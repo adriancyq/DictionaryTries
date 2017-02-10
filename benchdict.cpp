@@ -19,142 +19,205 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
 	// Check that we have 4 user-specified arguments
-	if (argc >= 5){
+	if (argc != 5){
 		cerr << "Wrong number of arguments, " << argc << " given." << endl;
 		return -1;
 	}
 
-	// User-specified arguments
-	// int minSize = atoi(argv[1]);
-	// int stepSize = atoi(argv[2]);
-	// int numIterations = atoi(argv[3]);
-	// string fileName = argv[4];
-	int minSize = 2;
-	int stepSize = 2;
-	int numIterations = 2;
-	string fileName = "dictionary/smalldictionary.txt";
+	int min_size = atoi(argv[1]); //converts 1st arg string to int
+	int step_size = atoi(argv[2]); //converts 2nd arg string to int
+	int num_iterations = atoi(argv[3]); //converts 3rd arg string to int
+	std::string nameofFile = argv[4];
+	int runDict = RUNDICTS;
+	long addMWT = 0;				 	//summation of time for MWT
+	double addBST = 0;					//summation of time for BST
+	double addHash = 0;					//summation of time for Hash
+	int wordAmount = 0;					//number of words for BST
+	int wordAmountHash = 0;
+	int wordAmountMWT = 0;
 
-	// Useful values
-	unsigned int dictSize;
-	unsigned int nextWords = 100;
 
-	// Open the file
-	ifstream inputStream;
-	inputStream.open(fileName);
-	if (!inputStream.is_open()) {
-		cerr << "Unable to open file." << endl;
-		return -1;
+	//Timers created
+	Timer timeOne;
+	Timer timeTwo;
+	Timer timeThree;
+
+	//Dictionaries created
+	DictionaryHashtable	*myDictHash = new DictionaryHashtable();
+	DictionaryBST *myDictBST = new DictionaryBST();
+	DictionaryTrie *myDictMWT = new DictionaryTrie();
+
+	//files are opened
+	std::ifstream inputfile;
+	inputfile.open(nameofFile);
+	if(!inputfile.is_open()){
+	  cout<<"file was not opened"<<endl;
 	}
 
-	// Find out how many words there are
-	int numWords = 0;
-	string word;
-	while (getline(inputStream, word)) {
-		numWords++;
+	//make sure the file was read out
+	string readLine = "";
+	int count = 0;
+	while(getline(inputfile, readLine)){
+	  count=count+1;
 	}
 
-	/* =========================================================================
-	 *
-	 * Benchmarking the BST-based Dictionary.
-	 *
-	 * ====================================================================== */
-	cout << "DictionaryBST" << endl;
-	vector<string> wordsBST;
-	Timer timeBST;
-	double averageTimeBST = 0;
+	/*BST handler*/
+	std::vector<std::string> DictBST;
 
-	for (int i = 0; i < numIterations; i++) {
+	std::cout<<"DictionaryBST class benchmark runs"<<endl;
 
-		// Reset stream so we read file from beginning
-		inputStream.close();
-		inputStream.open(fileName);
+	for (int i=0; i<num_iterations; i++){
 
-		// Create a new dictionary object for each iteration
-		DictionaryBST * dictBST = new DictionaryBST();
+	  inputfile.close();
 
-		// Check that we have minSize + i * stepSize words to load
-		dictSize = minSize + (i * stepSize);
-		if (numWords < dictSize) {
-			cerr << "Not enough words for the specified minSize and stepSize." << endl;
-			return -1;
-		}
+	  inputfile.open(nameofFile);
 
-		// Load minSize + i * stepSize words from beginning of dictionary file
-		Utils::load_dict(* dictBST, inputStream, dictSize);
-		Utils::load_vector(wordsBST, inputStream, nextWords);
+	  wordAmount = min_size + (i*step_size);
 
-		// Time how long it takes to find these 100 words
-		for (int i = 0; i < RUNDICTS; i++) {
-			timeBST.begin_timer();
-			for (int j = 0; j < 100; j++) {
-				dictBST->find(wordsBST[j]);
-			}
+	  //Loads word into dict from utils.h
+	  if(wordAmount<=count){
+	    Utils::load_dict(*myDictBST, inputfile, wordAmount);
+	  }
 
-			// End time
-			double elapsedBST = timeBST.end_timer();
-			averageTimeBST += (elapsedBST / RUNDICTS);
-		}
+	  else{
+	    cout<<"Warning! DictionaryBST does not have enough words"<<endl;
+	  }
 
-		// Report of average time for specific problem size
-		cout << dictSize << "	" << averageTimeBST << endl;
+	  //Grab following 100 words to be found
+	  for(int l=0; l<100; l++){
 
-		// Reset
-		delete dictBST;
-		wordsBST.clear();
+	    getline(inputfile, readLine);
+
+	    DictBST.push_back(readLine);
+	  }
+
+	  //times process of finding 100 words
+	  for(int n=0; n<runDict; n++){
+
+	    timeOne.begin_timer();
+
+	    for(int p=0; p<100; p++){
+
+	      myDictBST->find(DictBST[p]);
+	    }
+
+	    double BSTtime = timeOne.end_timer();
+
+	    //adds the times together
+	    addBST = addBST + BSTtime;
+	  }
+
+	  //Finds the average time
+	  addBST = (addBST/runDict);
+	  cout<<"word amount:" <<wordAmount<<"   in    "<<"time:"<<addBST<<endl;
 	}
+	//deletes BST
+	delete myDictBST;
+
+	  /*Hash Table handler*/
+	std::vector<std::string> DictHash;
+
+	std::cout<<"DictionaryHashTable class benchmark runs"<<endl;
 
 
-	/* =========================================================================
-	 *
-	 * Benchmarking the MWT-based Dictionary.
-	 *
-	 * ====================================================================== */
-	cout << "DictionaryTrie" << endl;
-	vector<string> wordsMWT;
-	Timer timeMWT;
-	double averageTimeMWT = 0;
+	for (int i=0; i<num_iterations; i++){
 
-	for (int i = 0; i < numIterations; i++) {
+	  inputfile.close();
 
-		// Reset stream so we read file from beginning
-		inputStream.close();
-		inputStream.open(fileName);
+	  inputfile.open(nameofFile);
 
-		// Create a new dictionary object for each iteration
-		DictionaryTrie * dictMWT = new DictionaryTrie();
+	  wordAmountHash = min_size + (i*step_size);
 
-		// Check that we have minSize + i * stepSize words to load
-		dictSize = minSize + (i * stepSize);
-		if (numWords < dictSize) {
-			cerr << "Not enough words for the specified minSize and stepSize." << endl;
-			return -1;
-		}
+	  //Loads word into dict from utils.h
+	  if(wordAmountHash<=count){
+	    Utils::load_dict(*myDictHash, inputfile, wordAmountHash);
+	  }
 
-		// Load minSize + i * stepSize words from beginning of dictionary file
-		Utils::load_dict(* dictMWT, inputStream, dictSize);
-		Utils::load_vector(wordsMWT, inputStream, nextWords);
+	  else{
+	    cout<<"Warning! DictionaryHashTable does not have enough words"<<endl;
+	  }
 
-		// Time how long it takes to find these 100 words
-		for (int i = 0; i < RUNDICTS; i++) {
-			timeMWT.begin_timer();
+	  //Grab following 100 words to be found
+	  for(int l=0; l<100; l++){
 
-			for (int j = 0; j < 100; j++) {
-				dictMWT->find(wordsMWT[j]);
-			}
+	    getline(inputfile, readLine);
 
-			// End time
-			double elapsedMWT = timeMWT.end_timer();
-			averageTimeMWT += (elapsedMWT / RUNDICTS);
-		}
+	    DictHash.push_back(readLine);
+	  }
 
-		// Report of average time for specific problem size
-		cout << dictSize << "	" << averageTimeMWT << endl;
+	  //times process of finding 100 words
+	  for(int n=0; n<runDict; n++){
 
-		// Reset
-		delete dictMWT;
-		wordsMWT.clear();
+	    timeTwo.begin_timer();
+
+	    for(int p=0; p<100; p++){
+
+	      myDictHash->find(DictHash[p]);
+	    }
+
+	    double Hashtime = timeTwo.end_timer();
+
+	    //adds the times together
+	    addHash = addHash + Hashtime;
+	  }
+
+	  //Finds the average time
+	  addHash = (addHash/runDict);
+	  cout<<"word amount:"<<wordAmountHash<<"    in    "<<addHash<<endl;
 	}
+	//deletes Hash
+	delete myDictHash;
 
+	/*MWT handler*/
+	std::vector<std::string> DictMWT;
 
-	return 0;
+	std::cout<<"DictionaryMWT class benchmark runs"<<endl;
+
+	for (int i=0; i<num_iterations; i++){
+
+	  inputfile.close();
+
+	  inputfile.open(nameofFile);
+
+	  wordAmountMWT = min_size + (i*step_size);
+
+	  //Loads word into dict from utils.h
+	  if(wordAmountMWT<=count){
+	    Utils::load_dict(*myDictMWT, inputfile, wordAmountMWT);
+	  }
+
+	  else{
+	    cout<<"Warning! DictionaryMWT does not have enough words"<<endl;
+	  }
+
+	  //Grab following 100 words to be found
+	  for(int l=0; l<100; l++){
+
+	    getline(inputfile, readLine);
+
+	    DictMWT.push_back(readLine);
+	  }
+
+	  //times process of finding 100 words
+	  for(int n=0; n<runDict; n++){
+
+	    timeThree.begin_timer();
+
+	    for(int p=0; p<100; p++){
+
+	      myDictMWT->find(DictMWT[p]);
+	    }
+
+	    double MWTtime = timeThree.end_timer();
+
+	    //adds the times together
+	    addMWT = addMWT + MWTtime;
+	  }
+
+	  //Finds the average time
+	  addMWT = (addMWT/runDict);
+	  cout<<"word amount:"<<wordAmountMWT<<"    in    "<<addMWT<<endl;
+	}
+	//deletes MWT
+	delete myDictMWT;
 }
