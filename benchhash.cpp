@@ -37,7 +37,7 @@ int summationHash(string key, int tableSize)
 
 /*
  * Bernstein hash function. Similar to summation function, but multiply
- * the sum by 33 upon each iteration before adding the ASCII value.
+ * the sum by 11 upon each iteration before adding the ASCII value.
  *
  * Source: http://www.eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx
  */
@@ -45,7 +45,7 @@ unsigned bernsteinHash(string key, int tableSize)
 {
 	long sum = 0;
 	for (unsigned int i = 0; i < key.length(); i++) {
-	  sum = 33 * sum + key[i];
+	  sum = 11 * sum + key[i];
 	}
 	return sum % tableSize;
 }
