@@ -1,6 +1,6 @@
 /*
  * File:      DictionaryBST.h
- * Authors:   Jonathan Chiu, Adrian Cordova
+ * Authors:   Jonathan Chiu (A12113428), Adrian Cordova (A12010305)
  * Class:     CSE 100, Winter 2017
  * Date:      2/7/2017
  *

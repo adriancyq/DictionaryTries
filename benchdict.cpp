@@ -1,7 +1,11 @@
-/*CSE 100 PA2
-Adrian Cordova y Quiroz A12010305
-Jonathan Chiu PIDDDDDDDDDD */
-
+/*
+ * File:      benchdict.cpp
+ * Authors:   Jonathan Chiu (A12113428), Adrian Cordova (A12010305)
+ * Class:     CSE 100, Winter 2017
+ * Date:      2/7/2017
+ *
+ * Benchmarking dictionaries with a BST, MWT, and Hashtable backend.
+ */
 #include "DictionaryTrie.h"
 #include "DictionaryBST.h"
 #include "DictionaryHashtable.h"
@@ -64,7 +68,7 @@ int main(int argc, char* argv[]) {
 	/*BST handler*/
 	std::vector<std::string> DictBST;
 
-	std::cout<<"DictionaryBST class benchmark runs"<<endl;
+	std::cout<<"DictionaryBST"<<endl;
 
 	for (int i=0; i<num_iterations; i++){
 
@@ -84,12 +88,14 @@ int main(int argc, char* argv[]) {
 	  }
 
 	  //Grab following 100 words to be found
-	  for(int l=0; l<100; l++){
+	  // for(int l=0; l<100; l++){
+		//
+	  //   getline(inputfile, readLine);
+		//
+	  //   DictBST.push_back(readLine);
+	  // }
 
-	    getline(inputfile, readLine);
-
-	    DictBST.push_back(readLine);
-	  }
+		Utils::load_vector(DictBST, inputfile, 100);
 
 	  //times process of finding 100 words
 	  for(int n=0; n<runDict; n++){
@@ -109,7 +115,7 @@ int main(int argc, char* argv[]) {
 
 	  //Finds the average time
 	  addBST = (addBST/runDict);
-	  cout<<"word amount:" <<wordAmount<<"   in    "<<"time:"<<addBST<<endl;
+	  cout << wordAmount << "	" << addBST << endl;
 	}
 	//deletes BST
 	delete myDictBST;
@@ -117,7 +123,7 @@ int main(int argc, char* argv[]) {
 	  /*Hash Table handler*/
 	std::vector<std::string> DictHash;
 
-	std::cout<<"DictionaryHashTable class benchmark runs"<<endl;
+	std::cout<<"DictionaryHashTable"<<endl;
 
 
 	for (int i=0; i<num_iterations; i++){
@@ -137,13 +143,15 @@ int main(int argc, char* argv[]) {
 	    cout<<"Warning! DictionaryHashTable does not have enough words"<<endl;
 	  }
 
-	  //Grab following 100 words to be found
-	  for(int l=0; l<100; l++){
+	  // //Grab following 100 words to be found
+	  // for(int l=0; l<100; l++){
+		//
+	  //   getline(inputfile, readLine);
+		//
+	  //   DictHash.push_back(readLine);
+	  // }
 
-	    getline(inputfile, readLine);
-
-	    DictHash.push_back(readLine);
-	  }
+		Utils::load_vector(DictHash, inputfile, 100);
 
 	  //times process of finding 100 words
 	  for(int n=0; n<runDict; n++){
@@ -163,7 +171,7 @@ int main(int argc, char* argv[]) {
 
 	  //Finds the average time
 	  addHash = (addHash/runDict);
-	  cout<<"word amount:"<<wordAmountHash<<"    in    "<<addHash<<endl;
+	  cout << wordAmountHash << "	" << addHash << endl;
 	}
 	//deletes Hash
 	delete myDictHash;
@@ -171,7 +179,7 @@ int main(int argc, char* argv[]) {
 	/*MWT handler*/
 	std::vector<std::string> DictMWT;
 
-	std::cout<<"DictionaryMWT class benchmark runs"<<endl;
+	std::cout<<"DictionaryTrie"<<endl;
 
 	for (int i=0; i<num_iterations; i++){
 
@@ -190,13 +198,15 @@ int main(int argc, char* argv[]) {
 	    cout<<"Warning! DictionaryMWT does not have enough words"<<endl;
 	  }
 
-	  //Grab following 100 words to be found
-	  for(int l=0; l<100; l++){
+	  // //Grab following 100 words to be found
+	  // for(int l=0; l<100; l++){
+		//
+	  //   getline(inputfile, readLine);
+		//
+	  //   DictMWT.push_back(readLine);
+	  // }
 
-	    getline(inputfile, readLine);
-
-	    DictMWT.push_back(readLine);
-	  }
+		Utils::load_vector(DictMWT, inputfile, 100);
 
 	  //times process of finding 100 words
 	  for(int n=0; n<runDict; n++){
@@ -216,7 +226,7 @@ int main(int argc, char* argv[]) {
 
 	  //Finds the average time
 	  addMWT = (addMWT/runDict);
-	  cout<<"word amount:"<<wordAmountMWT<<"    in    "<<addMWT<<endl;
+	  cout << wordAmountMWT << "	" << addMWT << endl;
 	}
 	//deletes MWT
 	delete myDictMWT;
