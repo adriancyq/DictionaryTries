@@ -14,7 +14,7 @@ using std::vector;
  */
 void Timer::begin_timer()
 {
-    
+
     start = std::chrono::high_resolution_clock::now();
 }
 
@@ -23,17 +23,17 @@ void Timer::begin_timer()
  */
 long long Timer::end_timer()
 {
-    
+
     std::chrono::time_point<std::chrono::high_resolution_clock> end;
     end = std::chrono::high_resolution_clock::now();
-    
+
     return (long long)std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
 }
 
-/* Parse a line from a dictionary file.  This line has the frequency as 
- * the first string, and the "word" (which may be a multi-word phrase)	
+/* Parse a line from a dictionary file.  This line has the frequency as
+ * the first string, and the "word" (which may be a multi-word phrase)
  * as the rest of the string.  This function will remove the frequency,
- * leaving "word".  It assumes the first set of characters before the 
+ * leaving "word".  It assumes the first set of characters before the
  * space is the number, and will always remove it.  If there is no space
  * before the end of the line, it will not change the string.
  *
@@ -56,13 +56,13 @@ unsigned int Utils::stripFrequency(string& line)
 }
 
 
-/* 
- * Load all of the words from the stream, words, into the vector, vec, in 
- * the order in which they appear in the stream. 
+/*
+ * Load all of the words from the stream, words, into the vector, vec, in
+ * the order in which they appear in the stream.
  */
 void Utils::load_vector(vector<string>& vec, istream& words)
 {
-    
+
     string line = "";
     while (1) {
         getline(words, line);
@@ -73,9 +73,9 @@ void Utils::load_vector(vector<string>& vec, istream& words)
     }
 }
 
-/* 
- * Load num_words words from the stream, words, into the vector, vec, in 
- * the order in which they appear in the stream. 
+/*
+ * Load num_words words from the stream, words, into the vector, vec, in
+ * the order in which they appear in the stream.
  */
 void Utils::load_vector(vector<string>& vec, istream& words, unsigned int num_words)
 {
@@ -91,13 +91,13 @@ void Utils::load_vector(vector<string>& vec, istream& words, unsigned int num_wo
     }
 }
 
-/* 
- * Load all of the words from the stream, words, into the BST-backed 
+/*
+ * Load all of the words from the stream, words, into the BST-backed
  * dictionary, dict.
  */
 void Utils::load_dict(DictionaryBST& dict, istream& words)
 {
-    
+
     string line = "";
     while (1) {
         getline(words, line);
@@ -108,8 +108,8 @@ void Utils::load_dict(DictionaryBST& dict, istream& words)
     }
 }
 
-/* 
- * Load num_words words from the stream, words, into the BST-backed 
+/*
+ * Load num_words words from the stream, words, into the BST-backed
  * dictionary, dict.
  */
 void Utils::load_dict(DictionaryBST& dict, istream& words, unsigned int num_words)
@@ -126,13 +126,13 @@ void Utils::load_dict(DictionaryBST& dict, istream& words, unsigned int num_word
     }
 }
 
-/* 
- * Load all of the words from the stream, words, into the Hashtable-backed 
+/*
+ * Load all of the words from the stream, words, into the Hashtable-backed
  * dictionary, dict.
  */
 void Utils::load_dict(DictionaryHashtable& dict, istream& words)
 {
-    
+
     string line = "";
     while (1) {
         getline(words, line);
@@ -143,8 +143,8 @@ void Utils::load_dict(DictionaryHashtable& dict, istream& words)
     }
 }
 
-/* 
- * Load num_words words from the stream, words, into the Hashtable-backed 
+/*
+ * Load num_words words from the stream, words, into the Hashtable-backed
  * dictionary, dict.
  */
 void Utils::load_dict(DictionaryHashtable& dict, istream& words, unsigned int num_words)
@@ -161,13 +161,13 @@ void Utils::load_dict(DictionaryHashtable& dict, istream& words, unsigned int nu
     }
 }
 
-/* 
- * Load all of the words from the stream, words, into the Trie-backed 
+/*
+ * Load all of the words from the stream, words, into the Trie-backed
  * dictionary, dict.
  */
  void Utils::load_dict(DictionaryTrie& dict, istream& words)
 {
-    
+
     string line = "";
     while (1) {
         getline(words, line);
@@ -178,8 +178,8 @@ void Utils::load_dict(DictionaryHashtable& dict, istream& words, unsigned int nu
     }
 }
 
-/* 
- * Load num_words words from the stream, words, into the Trie-backed 
+/*
+ * Load num_words words from the stream, words, into the Trie-backed
  * dictionary, dict.
  */
 void Utils::load_dict(DictionaryTrie& dict, istream& words, unsigned int num_words)
