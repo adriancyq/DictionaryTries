@@ -210,12 +210,12 @@ int main (int argc, char* argv[]) {
 
 	// Statistics for hash function #1
 	cout << "Printing the statistics for hashFunction1 with hash table size " << tableSize << endl;
-	cout << "#hits		#slots receiving the #hits" << endl;
+	cout << "#hits	#slots receiving the #hits" << endl;
 	for (unsigned int i = 0; i <= maxHits1; i++) {
 
 		// Don't output if no slots got "i" hits
 		if (numHits1[i] != 0) {
-			cout << i << "		" << numHits1[i] << endl;
+			cout << i << "	" << numHits1[i] << endl;
 		}
 	}
 
@@ -246,12 +246,12 @@ int main (int argc, char* argv[]) {
 
 	// Statistics for hash function #2
 	cout << "Printing the statistics for hashFunction2" << endl;
-	cout << "#hits		#slots receiving the #hits" << endl;
+	cout << "#hits	#slots receiving the #hits" << endl;
 	for (unsigned int i = 0; i <= maxHits2; i++) {
 
 		// Don't output if no slots got "i" hits
 		if (numHits2[i] != 0) {
-			cout << i << "		" << numHits2[i] << endl;
+			cout << i << "	" << numHits2[i] << endl;
 		}
 	}
 
