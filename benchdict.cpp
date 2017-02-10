@@ -57,9 +57,9 @@ int main(int argc, char* argv[]){
 	}
 
 	/*BST handler*/
-	std::cout<<"DictionaryBST class benchmark runs"<<endl;
-
 	std::vector<std::string> DictBST;
+
+	std::cout<<"DictionaryBST class benchmark runs"<<endl;
 
 	int wordAmount = 0;
 
@@ -114,9 +114,9 @@ int main(int argc, char* argv[]){
 	delete myDictBST;
 
 		/*Hash Table handler*/
-	std::cout<<"DictionaryHashTable class benchmark runs"<<endl;
-
 	std::vector<std::string> DictHash;
+
+	std::cout<<"DictionaryHashTable class benchmark runs"<<endl;
 
 	wordAmount = 0;
 
@@ -171,9 +171,9 @@ int main(int argc, char* argv[]){
 	delete myDictHash;
 
 	/*MWT handler*/
-	std::cout<<"DictionaryMWT class benchmark runs"<<endl;
-
 	std::vector<std::string> DictMWT;
+
+	std::cout<<"DictionaryMWT class benchmark runs"<<endl;
 
 	wordAmount = 0;
 
