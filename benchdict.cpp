@@ -32,8 +32,8 @@ int main(int argc, char* argv[]){
 	std::string nameofFile = argv[4];
 	int runDict = RUNDICTS; 
 					 					//summation of time for MWT
-	double addBST = 0;					//summation of time for BST
-	double addHash = 0;					//summation of time for Hash
+	long addBST = 0;					//summation of time for BST
+	long addHash = 0;					//summation of time for Hash
 	int wordAmount = 0;					//number of words for BST
 	int wordAmountHash = 0;
 	int wordAmountMWT = 0;
@@ -103,7 +103,7 @@ int main(int argc, char* argv[]){
 				myDictBST->find(DictBST[p]);
 			}
 
-			double BSTtime = timeOne.end_timer();
+			long BSTtime = timeOne.end_timer();
 
 			//adds the times together
 			addBST = addBST + BSTtime;
@@ -157,7 +157,7 @@ int main(int argc, char* argv[]){
 				myDictHash->find(DictHash[p]);
 			}
 
-			double Hashtime = timeTwo.end_timer();
+			long Hashtime = timeTwo.end_timer();
 
 			//adds the times together
 			addHash = addHash + Hashtime;
@@ -175,7 +175,7 @@ int main(int argc, char* argv[]){
 
 	std::cout<<"DictionaryMWT class benchmark runs"<<endl;
 
-	double addMWT = 0;
+	long addMWT = 0;
 
 	for (int i=0; i<num_iterations; i++){
 
@@ -212,7 +212,7 @@ int main(int argc, char* argv[]){
 				myDictMWT->find(DictMWT[p]);
 			}
 
-			double MWTtime = timeThree.end_timer();
+			long MWTtime = timeThree.end_timer();
 
 			//adds the times together
 			addMWT = addMWT + MWTtime;
