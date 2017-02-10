@@ -35,6 +35,8 @@ int main(int argc, char* argv[]){
 	double addBST = 0;					//summation of time for BST
 	double addHash = 0;					//summation of time for Hash
 	int wordAmount = 0;					//number of words for BST
+	int wordAmountHash = 0;
+	int wordAmountMWT = 0;
 
 
 	//Timers created
